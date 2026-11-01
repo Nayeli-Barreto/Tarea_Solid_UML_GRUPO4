@@ -1,37 +1,85 @@
 package com.petdaycare.usuarios;
 
-public abstract class Usuario {
+import com.petdaycare.reserva.Reserva;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Usuario extends UsuarioSistema {
+
     protected String correo;
     protected String telefono;
 
-    public Usuario(String correo, String telefono) {
+    private List<Reserva> reservas;
+
+    public Usuario(int id, String nombre,
+                   String correo, String telefono) {
+
+        super(id, nombre);
+
         this.correo = correo;
         this.telefono = telefono;
+        this.reservas = new ArrayList<>();
     }
 
     public void registrarMascota() {
-        System.out.println(">>> [PetDayCare] Registrando mascota...");
+        System.out.println(
+            ">>> [PetDayCare] Registrando mascota para " + nombre
+        );
     }
 
-    public void crearReserva() {
-        System.out.println(">>> [PetDayCare] Creando nueva reserva...");
+    public Reserva crearReserva() {
+        System.out.println(
+            ">>> [PetDayCare] Creando nueva reserva..."
+        );
+
+        return null;
     }
 
     public void cancelarReserva() {
-        System.out.println(">>> [PetDayCare] Solicitud de cancelación procesada.");
+        System.out.println(
+            ">>> [PetDayCare] Solicitud de cancelación procesada."
+        );
+    }
+
+    public void reportarIncidente() {
+        System.out.println(
+            ">>> [PetDayCare] Reportando incidente..."
+        );
     }
 
     public void reportarIncidente(String descripcion) {
-        System.out.println(">>> [Incidente Reportado]: " + descripcion);
+        System.out.println(
+            ">>> [Incidente Reportado]: " + descripcion
+        );
     }
 
-    public void consultarReservas() {
-        System.out.println(">>> [PetDayCare] Consultando reservas activas...");
+    public List<Reserva> consultarReservas() {
+        System.out.println(
+            ">>> [PetDayCare] Consultando reservas activas..."
+        );
+
+        return new ArrayList<>(reservas);
     }
 
-    public String getCorreo() { return correo; }
-    public void setCorreo(String correo) { this.correo = correo; }
+    public void agregarReserva(Reserva reserva) {
+        if (reserva != null) {
+            reservas.add(reserva);
+        }
+    }
 
-    public String getTelefono() { return telefono; }
-    public void setTelefono(String telefono) { this.telefono = telefono; }
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
 }
