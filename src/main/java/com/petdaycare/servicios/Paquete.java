@@ -3,7 +3,7 @@ package com.petdaycare.servicios;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Paquete implements InterfaceServicio {
+public class Paquete implements IServicio {
     private String nombrePaquete;
     private List<InterfaceServicio> servicios;
 
