@@ -1,34 +1,54 @@
 package com.petdaycare.usuarios;
 
-public class Administrador extends Usuario {
-    private String idAdministrador;
+public class Administrador extends UsuarioSistema {
 
-    public Administrador(String correo, String telefono, String idAdministrador) {
-        super(correo, telefono);
-        this.idAdministrador = idAdministrador;
+    public Administrador(int id, String nombre) {
+        super(id, nombre);
     }
+
+    // Métodos del diagrama UML
+
+    public void crearPromocion() {
+        System.out.println(
+            ">>> [Administrador] Creando una nueva promoción."
+        );
+    }
+
+    public void crearRestriccion() {
+        System.out.println(
+            ">>> [Administrador] Creando una restricción."
+        );
+    }
+
+    public void editarServicio() {
+        System.out.println(
+            ">>> [Administrador] Editando un servicio."
+        );
+    }
+
+    public void crearPoliticaCancelacion() {
+        System.out.println(
+            ">>> [Administrador] Creando política de cancelación."
+        );
+    }
+
+    // Métodos adicionales del código original
 
     public void gestionarServicios() {
-        System.out.println(">>> [Administrador " + idAdministrador + "] Configurando servicios, precios y horarios del centro.");
-    }
-
-    public void emitirPoliticaCancelacion() {
-        System.out.println(">>> [Administrador] Estableciendo nuevas políticas de cancelación y penalización.");
+        System.out.println(
+            ">>> [Administrador] Configurando servicios, precios y horarios."
+        );
     }
 
     public void emitirEstadoCuenta() {
-        System.out.println(">>> [Administrador] Generando y emitiendo el estado de cuenta financiero.");
+        System.out.println(
+            ">>> [Administrador] Generando estado de cuenta financiero."
+        );
     }
 
     public void usarProveedor() {
-        System.out.println(">>> [Administrador] Gestionando proveedores externos para el centro.");
-    }
-
-    public String getIdAdministrador() {
-        return idAdministrador;
-    }
-
-    public void setIdAdministrador(String idAdministrador) {
-        this.idAdministrador = idAdministrador;
+        System.out.println(
+            ">>> [Administrador] Gestionando proveedores externos."
+        );
     }
 }
