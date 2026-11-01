@@ -1,6 +1,6 @@
 package com.petdaycare.servicios;
 
-public class Entrenamiento implements InterfaceServicio {
+public class Entrenamiento implements IServicio {
     private double tarifa;
     private String nivel; 
 
