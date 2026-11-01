@@ -1,61 +1,108 @@
 package com.petdaycare.centro;
 
-import com.petdaycare.mascota.Mascota;
-import com.petdaycare.reserva.Reserva;
-import com.petdaycare.usuarios.Administrador;
-import com.petdaycare.usuarios.Cliente;
-import com.petdaycare.usuarios.Cuidador;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import com.petdaycare.usuarios.Cuidador;
+import com.petdaycare.servicios.IServicio;
+import com.petdaycare.reserva.Reserva;
+
 public class Centro {
+
+    private int id;
     private String nombre;
     private String direccion;
-    private List<Reserva> reservas;
-    private List<Cliente> clientes;
-    private List<Cuidador> cuidadores;
-    private List<Administrador> administradores;
-    private PoliticaCancelacion politicaCancelacion;
-    private List<HistorialAtencion> historialAtenciones;
+    private int capacidad;
+    private String horario;
 
-    public Centro(String nombre, String direccion, PoliticaCancelacion politicaCancelacion) {
+    private List<IServicio> servicios;
+    private List<Cuidador> cuidadores;
+    private List<Reserva> reservas;
+
+    private PoliticaCancelacion politicaCancelacion;
+
+    public Centro(int id, String nombre, String direccion,
+                  int capacidad,
+                  PoliticaCancelacion politicaCancelacion) {
+
+        this.id = id;
         this.nombre = nombre;
         this.direccion = direccion;
+        this.capacidad = capacidad;
         this.politicaCancelacion = politicaCancelacion;
-        this.reservas = new ArrayList<>();
-        this.clientes = new ArrayList<>();
+
+        this.horario = "No establecido";
+        this.servicios = new ArrayList<>();
         this.cuidadores = new ArrayList<>();
-        this.administradores = new ArrayList<>();
-        this.historialAtenciones = new ArrayList<>();
+        this.reservas = new ArrayList<>();
     }
 
-    public void registrarReserva(Reserva reserva) {
-        this.reservas.add(reserva);
+    public void agregarServicio(IServicio servicio) {
+        if (servicio != null) {
+            servicios.add(servicio);
+        }
     }
 
-    public void cancelarReserva(String idReserva) {
-        reservas.removeIf(r -> r.getIdReserva().equals(idReserva));
-        System.out.println(">>> [Centro] Reserva " + idReserva + " cancelada.");
-    }
-
-    public void agregarCliente(Cliente cliente) {
-        this.clientes.add(cliente);
+    public void eliminarServicio(IServicio servicio) {
+        servicios.remove(servicio);
     }
 
     public void agregarCuidador(Cuidador cuidador) {
-        this.cuidadores.add(cuidador);
+        if (cuidador != null) {
+            cuidadores.add(cuidador);
+        }
     }
 
-    public void agregarHistorial(HistorialAtencion historial) {
-        this.historialAtenciones.add(historial);
+    public void registrarReserva(Reserva reserva) {
+        if (reserva != null) {
+            reservas.add(reserva);
+        }
     }
 
-    public String getNombre() { return nombre; }
-    public String getDireccion() { return direccion; }
-    public List<Reserva> getReservas() { return reservas; }
-    public List<Cliente> getClientes() { return clientes; }
-    public List<Cuidador> getCuidadores() { return cuidadores; }
-    public PoliticaCancelacion getPoliticaCancelacion() { return politicaCancelacion; }
-    public void setPoliticaCancelacion(PoliticaCancelacion politica) { this.politicaCancelacion = politica; }
+    public boolean verificarDisponibilidad() {
+        long reservasActivas = reservas.stream()
+            .filter(r -> r.getEstado() != null
+                && r.getEstado() != com.petdaycare.reserva.EstadoReserva.CANCELADO)
+            .count();
+
+        return reservasActivas < capacidad;
+    }
+
+    public void actualizarHorario(String horario) {
+        if (horario != null && !horario.isBlank()) {
+            this.horario = horario;
+        }
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public int getCapacidad() {
+        return capacidad;
+    }
+
+    public String getHorario() {
+        return horario;
+    }
+
+    public List<IServicio> getServicios() {
+        return new ArrayList<>(servicios);
+    }
+
+    public List<Cuidador> getCuidadores() {
+        return new ArrayList<>(cuidadores);
+    }
+
+    public PoliticaCancelacion getPoliticaCancelacion() {
+        return politicaCancelacion;
+    }
 }
