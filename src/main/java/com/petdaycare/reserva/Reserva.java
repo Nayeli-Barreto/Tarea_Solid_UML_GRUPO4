@@ -1,3 +1,4 @@
+
 package com.petdaycare.reserva;
 
 import com.petdaycare.mascota.Mascota;
@@ -56,7 +57,9 @@ public class Reserva {
         }
 
         if (metodoPago == null) {
-            System.out.println("No se ha seleccionado un método de pago.");
+            System.out.println(
+                "No se ha seleccionado un método de pago."
+            );
             return;
         }
 
@@ -100,7 +103,7 @@ public class Reserva {
     }
 
     public List<IServicio> getServicios() {
-        return servicios;
+        return new ArrayList<>(servicios);
     }
 
     public IMetodoPago getMetodoPago() {
