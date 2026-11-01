@@ -1,65 +1,47 @@
 package com.petdaycare.mascota;
 
-import java.util.ArrayList;
-import java.util.List;
+public class MascotaBuilder {
 
-public class MascotaBuilder implements IMascotaBuilder {
+    private int id;
     private String nombre;
     private String especie;
     private String raza;
-    private int edad;
     private TamanoMascota tamano;
-    private List<AlertaSalud> alertasSalud;
+    private int edad;
 
-    public MascotaBuilder() {
-        this.alertasSalud = new ArrayList<>();
+    public MascotaBuilder setId(int id) {
+        this.id = id;
+        return this;
     }
 
-    @Override
-    public IMascotaBuilder setNombre(String nombre) {
+    public MascotaBuilder setNombre(String nombre) {
         this.nombre = nombre;
         return this;
     }
 
-    @Override
-    public IMascotaBuilder setEspecie(String especie) {
+    public MascotaBuilder setEspecie(String especie) {
         this.especie = especie;
         return this;
     }
 
-    @Override
-    public IMascotaBuilder setRaza(String raza) {
+    public MascotaBuilder setRaza(String raza) {
         this.raza = raza;
         return this;
     }
 
-    @Override
-    public IMascotaBuilder setEdad(int edad) {
-        this.edad = edad;
-        return this;
-    }
-
-    @Override
-    public IMascotaBuilder setTamano(TamanoMascota tamano) {
+    public MascotaBuilder setTamano(TamanoMascota tamano) {
         this.tamano = tamano;
         return this;
     }
 
-    @Override
-    public IMascotaBuilder agregarAlertaSalud(AlertaSalud alerta) {
-        this.alertasSalud.add(alerta);
+    public MascotaBuilder setEdad(int edad) {
+        this.edad = edad;
         return this;
     }
 
-    @Override
     public Mascota build() {
-        return new Mascota(this);
+        return new Mascota(
+            id, nombre, especie, raza, tamano, edad
+        );
     }
-
-    public String getNombre() { return nombre; }
-    public String getEspecie() { return especie; }
-    public String getRaza() { return raza; }
-    public int getEdad() { return edad; }
-    public TamanoMascota getTamano() { return tamano; }
-    public List<AlertaSalud> getAlertasSalud() { return alertasSalud; }
 }
