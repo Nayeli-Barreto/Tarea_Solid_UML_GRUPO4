@@ -1,26 +1,56 @@
 package com.petdaycare.usuarios;
 
-public class Cuidador extends Usuario {
+public class Cuidador extends UsuarioSistema {
+
     private String especialidad;
     private String turno;
 
-    public Cuidador(String correo, String telefono, String especialidad, String turno) {
-        super(correo, telefono);
+    public Cuidador(int id, String nombre,
+                    String especialidad, String turno) {
+
+        super(id, nombre);
+
         this.especialidad = especialidad;
         this.turno = turno;
     }
 
+    // Métodos del diagrama UML
+
+    public void atenderMascota() {
+        System.out.println(
+            ">>> [Cuidador] " + nombre
+            + " está atendiendo a una mascota."
+        );
+    }
+
+    public String generarComentario() {
+        return "Comentario del cuidador " + nombre
+                + ": Atención realizada correctamente.";
+    }
+
+    // Métodos adicionales del código original
+
     public void atenderIncidencia(String descripcionIncidencia) {
-        System.out.println(">>> [Cuidador] Atendiendo incidencia: " + descripcionIncidencia);
+        System.out.println(
+            ">>> [Cuidador] Atendiendo incidencia: "
+            + descripcionIncidencia
+        );
     }
 
     public void registrarReporteDiario() {
-        System.out.println(">>> [Cuidador] Registrando reporte de actividades para el turno: " + turno);
+        System.out.println(
+            ">>> [Cuidador] Registrando reporte del turno: "
+            + turno
+        );
     }
 
     public void verificarBienestarMascota() {
-        System.out.println(">>> [Cuidador] Verificando el estado y bienestar de las mascotas asignadas.");
+        System.out.println(
+            ">>> [Cuidador] Verificando el bienestar de las mascotas."
+        );
     }
+
+    // Getters y setters
 
     public String getEspecialidad() {
         return especialidad;
