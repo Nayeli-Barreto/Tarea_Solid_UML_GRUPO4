@@ -1,4 +1,3 @@
-
 package com.petdaycare;
 
 import com.petdaycare.centro.Centro;
@@ -32,9 +31,10 @@ public class Main {
 
         // 1. Registrar cliente
         Cliente cliente = new Cliente(
+            1,
+            "Ana Pérez",
             "ana.perez@email.com",
-            "0991234567",
-            "Contacto principal"
+            "0991234567"
         );
 
         System.out.println("\nCliente registrado: "
@@ -42,6 +42,7 @@ public class Main {
 
         // 2. Registrar mascota
         Mascota mascota = new MascotaBuilder()
+                .setId(1)
                 .setNombre("Firulais")
                 .setEspecie("Canino")
                 .setRaza("Golden Retriever")
@@ -108,8 +109,10 @@ public class Main {
                 );
 
         Centro centro = new Centro(
+            1,
             "PetDayCare Guayaquil",
             "Av. Principal del Norte",
+            20,
             politica
         );
 
