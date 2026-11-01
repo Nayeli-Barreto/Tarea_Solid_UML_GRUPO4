@@ -5,21 +5,21 @@ import java.util.List;
 
 public class Paquete implements IServicio {
     private String nombrePaquete;
-    private List<InterfaceServicio> servicios;
+    private List<IServicio> servicios;
 
     public Paquete(String nombrePaquete) {
         this.nombrePaquete = nombrePaquete;
         this.servicios = new ArrayList<>();
     }
 
-    public void agregarServicio(InterfaceServicio servicio) {
+    public void agregarServicio(IServicio servicio) {
         this.servicios.add(servicio);
     }
 
     @Override
     public double calcularPrecio() {
         double total = 0.0;
-        for (InterfaceServicio servicio : servicios) {
+        for (IServicio servicio : servicios) {
             total += servicio.calcularPrecio();
         }
   
@@ -29,7 +29,7 @@ public class Paquete implements IServicio {
     @Override
     public boolean verificarDisponibilidad() {
         System.out.println(">>> [Paquete: " + nombrePaquete + "] Verificando disponibilidad de los servicios agrupados...");
-        for (InterfaceServicio servicio : servicios) {
+        for (IServicio servicio : servicios) {
             if (!servicio.verificarDisponibilidad()) {
                 return false;
             }
@@ -40,7 +40,7 @@ public class Paquete implements IServicio {
     @Override
     public String obtenerDescripcion() {
         StringBuilder desc = new StringBuilder("Paquete: " + nombrePaquete + " (Contiene: ");
-        for (InterfaceServicio servicio : servicios) {
+        for (IServicio servicio : servicios) {
             desc.append("[").append(servicio.obtenerDescripcion()).append("] ");
         }
         desc.append(")");
@@ -56,7 +56,7 @@ public class Paquete implements IServicio {
         this.nombrePaquete = nombrePaquete;
     }
 
-    public List<InterfaceServicio> getServicios() {
+    public List<IServicio> getServicios() {
         return servicios;
     }
 }
