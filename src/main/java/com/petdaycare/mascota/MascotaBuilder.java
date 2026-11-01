@@ -1,4 +1,8 @@
+
 package com.petdaycare.mascota;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MascotaBuilder {
 
@@ -8,6 +12,11 @@ public class MascotaBuilder {
     private String raza;
     private TamanoMascota tamano;
     private int edad;
+    private List<AlertaSalud> alertasSalud;
+
+    public MascotaBuilder() {
+        this.alertasSalud = new ArrayList<>();
+    }
 
     public MascotaBuilder setId(int id) {
         this.id = id;
@@ -39,9 +48,23 @@ public class MascotaBuilder {
         return this;
     }
 
+    public MascotaBuilder agregarAlertaSalud(AlertaSalud alerta) {
+        if (alerta != null) {
+            alertasSalud.add(alerta);
+        }
+        return this;
+    }
+
     public Mascota build() {
-        return new Mascota(
+
+        Mascota mascota = new Mascota(
             id, nombre, especie, raza, tamano, edad
         );
+
+        for (AlertaSalud alerta : alertasSalud) {
+            mascota.agregarAlertaSalud(alerta);
+        }
+
+        return mascota;
     }
 }
