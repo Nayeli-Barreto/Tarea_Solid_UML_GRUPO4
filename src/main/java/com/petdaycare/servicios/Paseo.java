@@ -1,6 +1,6 @@
 package com.petdaycare.servicios;
 
-public class Paseo implements InterfaceServicio {
+public class Paseo implements IServicio {
     private double tarifa;
     private String tipo; 
 
