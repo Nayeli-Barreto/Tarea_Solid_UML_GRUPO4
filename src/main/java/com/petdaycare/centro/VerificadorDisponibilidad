@@ -9,13 +9,16 @@ public class VerificadorDisponibilidad
     @Override
     public boolean verificar(Reserva reserva) {
 
-        if (reserva == null || reserva.getServicios().isEmpty()) {
+        if (reserva == null
+                || reserva.getServicios() == null
+                || reserva.getServicios().isEmpty()) {
             return false;
         }
 
         for (IServicio servicio : reserva.getServicios()) {
 
-            if (!servicio.verificarDisponibilidad()) {
+            if (servicio == null
+                    || !servicio.verificarDisponibilidad()) {
                 return false;
             }
         }
