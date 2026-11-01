@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Cliente extends Usuario {
     private String especialidadContacto; 
-    private List<String> mascotasRegistradas; s
+    private List<String> mascotasRegistradas; 
 
     public Cliente(String correo, String telefono, String especialidadContacto) {
         super(correo, telefono);
