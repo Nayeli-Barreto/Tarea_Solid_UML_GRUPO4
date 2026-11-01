@@ -4,25 +4,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Cliente extends Usuario {
-    private String especialidadContacto; 
-    private List<String> mascotasRegistradas; 
 
-    public Cliente(String correo, String telefono, String especialidadContacto) {
-        super(correo, telefono);
-        this.especialidadContacto = especialidadContacto;
+    private String especialidadContacto;
+    private List<String> mascotasRegistradas;
+
+    public Cliente(int id, String nombre,
+                   String correo, String telefono) {
+
+        super(id, nombre, correo, telefono);
+
+        this.especialidadContacto = "Contacto principal";
         this.mascotasRegistradas = new ArrayList<>();
     }
 
     public void agregarMascota(String nombreMascota) {
-        this.mascotasRegistradas.add(nombreMascota);
-        System.out.println(">>> [Cliente] Mascota '" + nombreMascota + "' registrada exitosamente para " + correo);
+
+        mascotasRegistradas.add(nombreMascota);
+
+        System.out.println(
+            ">>> [Cliente] Mascota '" + nombreMascota
+            + "' registrada exitosamente para " + nombre
+        );
     }
 
     public String generarComentario(String comentario) {
-        return "Comentario del cliente (" + correo + "): " + comentario;
+        return "Comentario del cliente (" + nombre
+                + "): " + comentario;
     }
 
-    
     public String getEspecialidadContacto() {
         return especialidadContacto;
     }
