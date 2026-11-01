@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReservaBuilder implements IReservaBuilder {
+
     private String idReserva;
     private Mascota mascota;
     private LocalDate fecha;
@@ -19,8 +20,9 @@ public class ReservaBuilder implements IReservaBuilder {
 
     public ReservaBuilder() {
         this.servicios = new ArrayList<>();
-        this.estado = EstadoReserva.PENDIENTE; 
-        this.frecuencia = FrecuenciaReserva.UNICA; 
+        this.estado = EstadoReserva.DISPONIBLE;
+        this.frecuencia = FrecuenciaReserva.UNICA;
+    }
 
     @Override
     public IReservaBuilder setIdReserva(String idReserva) {
@@ -41,19 +43,22 @@ public class ReservaBuilder implements IReservaBuilder {
     }
 
     @Override
-    public IReservaBuilder setFrecuencia(FrecuenciaReserva frecuencia) {
+    public IReservaBuilder setFrecuencia(
+            FrecuenciaReserva frecuencia) {
         this.frecuencia = frecuencia;
         return this;
     }
 
     @Override
-    public IReservaBuilder agregarServicio(InterfaceServicio servicio) {
+    public IReservaBuilder agregarServicio(
+            InterfaceServicio servicio) {
         this.servicios.add(servicio);
         return this;
     }
 
     @Override
-    public IReservaBuilder setMetodoPago(IMetodoPago metodoPago) {
+    public IReservaBuilder setMetodoPago(
+            IMetodoPago metodoPago) {
         this.metodoPago = metodoPago;
         return this;
     }
@@ -69,11 +74,31 @@ public class ReservaBuilder implements IReservaBuilder {
         return new Reserva(this);
     }
 
-    public String getIdReserva() { return idReserva; }
-    public Mascota getMascota() { return mascota; }
-    public LocalDate getFecha() { return fecha; }
-    public FrecuenciaReserva getFrecuencia() { return frecuencia; }
-    public List<InterfaceServicio> getServicios() { return servicios; }
-    public IMetodoPago getMetodoPago() { return metodoPago; }
-    public EstadoReserva getEstado() { return estado; }
+    public String getIdReserva() {
+        return idReserva;
+    }
+
+    public Mascota getMascota() {
+        return mascota;
+    }
+
+    public LocalDate getFecha() {
+        return fecha;
+    }
+
+    public FrecuenciaReserva getFrecuencia() {
+        return frecuencia;
+    }
+
+    public List<InterfaceServicio> getServicios() {
+        return servicios;
+    }
+
+    public IMetodoPago getMetodoPago() {
+        return metodoPago;
+    }
+
+    public EstadoReserva getEstado() {
+        return estado;
+    }
 }
