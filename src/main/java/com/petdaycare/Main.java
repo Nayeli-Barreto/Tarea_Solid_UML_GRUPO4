@@ -9,82 +9,123 @@ import com.petdaycare.mascota.TamanoMascota;
 import com.petdaycare.observer.NotificacionApp;
 import com.petdaycare.observer.NotificacionEmail;
 import com.petdaycare.observer.NotificacionSMS;
-import com.petdaycare.pagos.IMetodoPago;
 import com.petdaycare.pagos.PagoTarjeta;
-import com.petdaycare.reserva.EstadoReserva;
-import com.petdaycare.reserva.FrecuenciaReserva;
 import com.petdaycare.reserva.Reserva;
 import com.petdaycare.reserva.ReservaBuilder;
+import com.petdaycare.reserva.FrecuenciaReserva;
 import com.petdaycare.servicios.Hospedaje;
 import com.petdaycare.servicios.Paquete;
 import com.petdaycare.servicios.Paseo;
 import com.petdaycare.usuarios.Cliente;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class Main {
+
     public static void main(String[] args) {
-        System.out.println("==================================================");
-        System.out.println("      INICIANDO SISTEMA DE PRUEBA: PETDAYCARE     ");
-        System.out.println("==================================================");
 
-        Cliente cliente = new Cliente("C001", "Ana Pérez", "ana.perez@email.com", "0991234567");
-        System.out.println("\n[1] Cliente registrado: " + cliente.getNombre() + " (" + cliente.getCorreo() + ")");
+        System.out.println("==================================");
+        System.out.println("       SISTEMA PETDAYCARE");
+        System.out.println("==================================");
 
+        // 1. Registrar cliente
+        Cliente cliente = new Cliente(
+            "ana.perez@email.com",
+            "0991234567",
+            "Contacto principal"
+        );
+
+        System.out.println("\nCliente registrado: "
+                + cliente.getCorreo());
+
+        // 2. Registrar mascota
         Mascota mascota = new MascotaBuilder()
                 .setNombre("Firulais")
                 .setEspecie("Canino")
                 .setRaza("Golden Retriever")
                 .setEdad(3)
                 .setTamano(TamanoMascota.GRANDE)
-                .agregarAlertaSalud(new AlertaSalud("Alergia", "Alergico al pollo", new Date(), false))
+                .agregarAlertaSalud(
+                    new AlertaSalud(
+                        "Alergia al pollo",
+                        "Alta"
+                    )
+                )
                 .build();
-        System.out.println("[2] Mascota creada con Builder: " + mascota.getNombre() + " (" + mascota.getRaza() + ", Tamaño: " + mascota.getTamano() + ")");
 
-        Hospedaje hospedaje = new Hospedaje(25.0, "Hospedaje nocturno por 1 noche", 1);
-        Paseo paseo = new Paseo(10.0, "Paseo matutino de 1 hora", "Parque Lineal");
+        System.out.println("\nMascota registrada: "
+                + mascota.getNombre());
 
-        Paquete paqueteServicios = new Paquete("PK01", "Paquete Vacaciones Felices");
-        paqueteServicios.agregarServicio(hospedaje);
-        paqueteServicios.agregarServicio(paseo);
-        System.out.println("[3] Servicios creados (Patrón Composite) - Costo total del paquete: $" + paqueteServicios.calcularPrecio());
+        // 3. Seleccionar servicios
+        Hospedaje hospedaje = new Hospedaje(1, 25.0);
 
-        IMetodoPago metodoPago = new PagoTarjeta("1234-5678-9876-5432");
-        boolean pagoExitoso = metodoPago.procesarPago(paqueteServicios.calcularPrecio());
-        if (pagoExitoso) {
-            System.out.println("[4] Pago procesado exitosamente con Tarjeta.");
-        }
+        Paseo paseo = new Paseo(10.0, "Matutino");
 
+        Paquete paquete = new Paquete("Vacaciones Felices");
+
+        paquete.agregarServicio(hospedaje);
+        paquete.agregarServicio(paseo);
+
+        System.out.println("\nPrecio del paquete: $"
+                + paquete.calcularPrecio());
+
+        // 4. Seleccionar método de pago
+        PagoTarjeta metodoPago = new PagoTarjeta(
+            "1234567890123456",
+            "Ana Perez"
+        );
+
+        // 5. Crear reserva
         Reserva reserva = new ReservaBuilder()
-                .setIdReserva("RES-2026-001")
+                .setIdReserva("RES-001")
                 .setMascota(mascota)
                 .setFecha(LocalDate.now().plusDays(2))
                 .setFrecuencia(FrecuenciaReserva.UNICA)
-                .agregarServicio(paqueteServicios)
+                .agregarServicio(paquete)
                 .setMetodoPago(metodoPago)
-                .setEstado(EstadoReserva.CONFIRMADA)
                 .build();
-        System.out.println("[5] Reserva generada con ID: " + reserva.getIdReserva() + " - Estado: " + reserva.getEstado());
 
-        PoliticaCancelacion politica = new PoliticaCancelacion(100.0, 1, "Reembolso total cancelando con 24h de anticipación", true);
-        Centro centro = new Centro("PetDayCare Guayaquil", "Av. Principal del Norte", politica);
+        // 6. Confirmar reserva y procesar pago
+        reserva.confirmar();
+
+        System.out.println("Estado de reserva: "
+                + reserva.getEstado());
+
+        // 7. Registrar centro
+        PoliticaCancelacion politica =
+                new PoliticaCancelacion(
+                    100.0,
+                    1,
+                    "Reembolso total con 24 horas de anticipación",
+                    true
+                );
+
+        Centro centro = new Centro(
+            "PetDayCare Guayaquil",
+            "Av. Principal del Norte",
+            politica
+        );
+
         centro.registrarReserva(reserva);
-        System.out.println("[6] Reserva registrada en el centro: " + centro.getNombre());
 
-        System.out.println("\n--- ENVIANDO NOTIFICACIONES (Patrón Observer) ---");
+        System.out.println("\nReserva registrada en: "
+                + centro.getNombre());
+
+        // 8. Enviar notificaciones
+        String mensaje = "Tu reserva "
+                + reserva.getIdReserva()
+                + " ha sido procesada.";
+
         NotificacionEmail email = new NotificacionEmail();
         NotificacionSMS sms = new NotificacionSMS();
         NotificacionApp app = new NotificacionApp();
 
-        String mensajeNotificacion = "¡Hola Ana! Tu reserva " + reserva.getIdReserva + " para " + mascota.getNombre() + " ha sido confirmada con éxito.";
-        
-        email.enviar(cliente, mensajeNotificacion);
-        sms.enviar(cliente, mensajeNotificacion);
-        app.enviar(cliente, mensajeNotificacion);
+        email.enviar(cliente, mensaje);
+        sms.enviar(cliente, mensaje);
+        app.enviar(cliente, mensaje);
 
-        System.out.println("\n==================================================");
-        System.out.println("      PRUEBA FINALIZADA EXITOSAMENTE            ");
-        System.out.println("==================================================");
+        System.out.println("\n==================================");
+        System.out.println("     PRUEBA FINALIZADA");
+        System.out.println("==================================");
     }
 }
