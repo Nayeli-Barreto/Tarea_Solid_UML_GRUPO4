@@ -2,7 +2,7 @@ package com.petdaycare.reserva;
 
 import com.petdaycare.mascota.Mascota;
 import com.petdaycare.pagos.IMetodoPago;
-import com.petdaycare.servicios.InterfaceServicio;
+import com.petdaycare.servicios.IServicio;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ public class Reserva {
     private String idReserva;
     private Mascota mascota;
     private LocalDate fecha;
-    private List<InterfaceServicio> servicios;
+    private List<IServicio> servicios;
     private IMetodoPago metodoPago;
     private EstadoReserva estado;
     private FrecuenciaReserva frecuencia;
@@ -31,7 +31,7 @@ public class Reserva {
     public double calcularMonto() {
         double total = 0;
 
-        for (InterfaceServicio servicio : servicios) {
+        for (IServicio servicio : servicios) {
             total += servicio.calcularPrecio();
         }
 
@@ -45,7 +45,7 @@ public class Reserva {
             return;
         }
 
-        for (InterfaceServicio servicio : servicios) {
+        for (IServicio servicio : servicios) {
             if (!servicio.verificarDisponibilidad()) {
                 System.out.println(
                     "Servicio no disponible: "
@@ -99,7 +99,7 @@ public class Reserva {
         return fecha;
     }
 
-    public List<InterfaceServicio> getServicios() {
+    public List<IServicio> getServicios() {
         return servicios;
     }
 
