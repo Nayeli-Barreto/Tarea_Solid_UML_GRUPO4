@@ -2,7 +2,7 @@ package com.petdaycare.reserva;
 
 import com.petdaycare.mascota.Mascota;
 import com.petdaycare.pagos.IMetodoPago;
-import com.petdaycare.servicios.InterfaceServicio;
+import com.petdaycare.servicios.IServicio;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ public class ReservaBuilder implements IReservaBuilder {
     private Mascota mascota;
     private LocalDate fecha;
     private FrecuenciaReserva frecuencia;
-    private List<InterfaceServicio> servicios;
+    private List<IServicio> servicios;
     private IMetodoPago metodoPago;
     private EstadoReserva estado;
 
@@ -51,7 +51,7 @@ public class ReservaBuilder implements IReservaBuilder {
 
     @Override
     public IReservaBuilder agregarServicio(
-            InterfaceServicio servicio) {
+            IServicio servicio) {
         this.servicios.add(servicio);
         return this;
     }
@@ -90,7 +90,7 @@ public class ReservaBuilder implements IReservaBuilder {
         return frecuencia;
     }
 
-    public List<InterfaceServicio> getServicios() {
+    public List<IServicio> getServicios() {
         return servicios;
     }
 
