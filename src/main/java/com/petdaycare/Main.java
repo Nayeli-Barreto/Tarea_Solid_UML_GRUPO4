@@ -1,3 +1,4 @@
+
 package com.petdaycare;
 
 import com.petdaycare.centro.Centro;
@@ -16,6 +17,7 @@ import com.petdaycare.reserva.FrecuenciaReserva;
 import com.petdaycare.servicios.Hospedaje;
 import com.petdaycare.servicios.Paquete;
 import com.petdaycare.servicios.Paseo;
+import com.petdaycare.servicios.SesionesBienestar;
 import com.petdaycare.usuarios.Cliente;
 
 import java.time.LocalDate;
@@ -61,21 +63,26 @@ public class Main {
 
         Paseo paseo = new Paseo(10.0, "Matutino");
 
+        SesionesBienestar bienestar =
+                new SesionesBienestar(15.0, "Relajación");
+
+        // 4. Crear paquete
         Paquete paquete = new Paquete("Vacaciones Felices");
 
         paquete.agregarServicio(hospedaje);
         paquete.agregarServicio(paseo);
+        paquete.agregarServicio(bienestar);
 
         System.out.println("\nPrecio del paquete: $"
                 + paquete.calcularPrecio());
 
-        // 4. Seleccionar método de pago
+        // 5. Seleccionar método de pago
         PagoTarjeta metodoPago = new PagoTarjeta(
             "1234567890123456",
             "Ana Perez"
         );
 
-        // 5. Crear reserva
+        // 6. Crear reserva
         Reserva reserva = new ReservaBuilder()
                 .setIdReserva("RES-001")
                 .setMascota(mascota)
@@ -85,13 +92,13 @@ public class Main {
                 .setMetodoPago(metodoPago)
                 .build();
 
-        // 6. Confirmar reserva y procesar pago
+        // 7. Confirmar reserva y procesar pago
         reserva.confirmar();
 
         System.out.println("Estado de reserva: "
                 + reserva.getEstado());
 
-        // 7. Registrar centro
+        // 8. Registrar centro
         PoliticaCancelacion politica =
                 new PoliticaCancelacion(
                     100.0,
@@ -111,7 +118,7 @@ public class Main {
         System.out.println("\nReserva registrada en: "
                 + centro.getNombre());
 
-        // 8. Enviar notificaciones
+        // 9. Enviar notificaciones
         String mensaje = "Tu reserva "
                 + reserva.getIdReserva()
                 + " ha sido procesada.";
