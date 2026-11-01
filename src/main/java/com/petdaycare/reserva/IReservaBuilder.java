@@ -2,7 +2,7 @@ package com.petdaycare.reserva;
 
 import com.petdaycare.mascota.Mascota;
 import com.petdaycare.pagos.IMetodoPago;
-import com.petdaycare.servicios.InterfaceServicio;
+import com.petdaycare.servicios.IServicio;
 
 import java.time.LocalDate;
 
@@ -11,7 +11,7 @@ public interface IReservaBuilder {
     IReservaBuilder setMascota(Mascota mascota);
     IReservaBuilder setFecha(LocalDate fecha);
     IReservaBuilder setFrecuencia(FrecuenciaReserva frecuencia);
-    IReservaBuilder agregarServicio(InterfaceServicio servicio);
+    IReservaBuilder agregarServicio(IServicio servicio);
     IReservaBuilder setMetodoPago(IMetodoPago metodoPago);
     IReservaBuilder setEstado(EstadoReserva estado);
     Reserva build();
