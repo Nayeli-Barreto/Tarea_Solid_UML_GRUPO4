@@ -50,15 +50,15 @@ public class ReservaBuilder implements IReservaBuilder {
     }
 
     @Override
-    public IReservaBuilder agregarServicio(
-            IServicio servicio) {
-        this.servicios.add(servicio);
+    public IReservaBuilder agregarServicio(IServicio servicio) {
+        if (servicio != null) {
+            this.servicios.add(servicio);
+        }
         return this;
     }
 
     @Override
-    public IReservaBuilder setMetodoPago(
-            IMetodoPago metodoPago) {
+    public IReservaBuilder setMetodoPago(IMetodoPago metodoPago) {
         this.metodoPago = metodoPago;
         return this;
     }
@@ -91,7 +91,7 @@ public class ReservaBuilder implements IReservaBuilder {
     }
 
     public List<IServicio> getServicios() {
-        return servicios;
+        return new ArrayList<>(servicios);
     }
 
     public IMetodoPago getMetodoPago() {
