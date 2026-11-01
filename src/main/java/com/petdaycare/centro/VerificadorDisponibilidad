@@ -1,0 +1,25 @@
+package com.petdaycare.centro;
+
+import com.petdaycare.reserva.Reserva;
+import com.petdaycare.servicios.IServicio;
+
+public class VerificadorDisponibilidad
+        implements IVerificadorDisponibilidad {
+
+    @Override
+    public boolean verificar(Reserva reserva) {
+
+        if (reserva == null || reserva.getServicios().isEmpty()) {
+            return false;
+        }
+
+        for (IServicio servicio : reserva.getServicios()) {
+
+            if (!servicio.verificarDisponibilidad()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+}
