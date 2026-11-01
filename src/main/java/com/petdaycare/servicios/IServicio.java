@@ -1,6 +1,6 @@
 package com.petdaycare.servicios;
 
-public interface InterfaceServicio {
+public interface IServicio {
     double calcularPrecio();
     boolean verificarDisponibilidad();
     String obtenerDescripcion();
