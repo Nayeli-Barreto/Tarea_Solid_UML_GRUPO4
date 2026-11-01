@@ -1,9 +1,9 @@
 package com.petdaycare.reserva;
 
 public enum EstadoReserva {
-    PENDIENTE,
-    CONFIRMADA,
-    EN_PROCESO,
-    COMPLETADA,
-    CANCELADA
+    DISPONIBLE,
+    OCUPADO,
+    EN_ESPERA,
+    CANCELADO,
+    CONFIRMADO
 }
