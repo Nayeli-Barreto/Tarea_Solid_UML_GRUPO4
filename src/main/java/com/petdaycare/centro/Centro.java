@@ -1,11 +1,10 @@
 package com.petdaycare.centro;
 
+import com.petdaycare.reserva.Reserva;
+import com.petdaycare.servicios.IServicio;
+import com.petdaycare.usuarios.Cuidador;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.petdaycare.usuarios.Cuidador;
-import com.petdaycare.servicios.IServicio;
-import com.petdaycare.reserva.Reserva;
 
 public class Centro {
 
@@ -104,5 +103,76 @@ public class Centro {
 
     public PoliticaCancelacion getPoliticaCancelacion() {
         return politicaCancelacion;
+    }
+
+    private final List<Promocion> promociones = new ArrayList<>();
+private final List<Restriccion> restricciones = new ArrayList<>();
+
+public void agregarPromocion(Promocion promocion) {
+    if (promocion == null
+            || !Double.isFinite(promocion.getDescuento())
+            || promocion.getDescuento() < 0
+            || promocion.getDescuento() > 100) {
+        throw new IllegalArgumentException("Promoción inválida.");
+    }
+
+    boolean existe = promociones.stream()
+            .anyMatch(p -> p.getId() == promocion.getId());
+
+    if (!existe) {
+        promociones.add(promocion);
+    }
+}
+
+    public void agregarRestriccion(Restriccion restriccion) {
+        if (restriccion == null || !restriccion.validar()) {
+            throw new IllegalArgumentException("Restricción inválida.");
+        }
+
+        boolean existe = restricciones.stream()
+                .anyMatch(r -> r.getId() == restriccion.getId());
+
+        if (!existe) {
+            restricciones.add(restriccion);
+        }
+    }
+
+    public void configurarPolitica(PoliticaCancelacion politica) {
+        if (politica == null) {
+            throw new IllegalArgumentException("La política es obligatoria.");
+        }
+
+        politicaCancelacion = politica;
+    }
+
+    public void reemplazarServicio(IServicio anterior, IServicio nuevo) {
+        if (nuevo == null
+                || !Double.isFinite(nuevo.calcularPrecio())
+                || nuevo.calcularPrecio() < 0
+                || capacidad <= 0) {
+            throw new IllegalArgumentException(
+                    "Precio o capacidad inválidos.");
+        }
+
+        if (anterior != null && !servicios.contains(anterior)) {
+            throw new IllegalArgumentException(
+                    "El servicio anterior no pertenece al centro.");
+        }
+
+        if (anterior != null) {
+            servicios.remove(anterior);
+        }
+
+        if (!servicios.contains(nuevo)) {
+            servicios.add(nuevo);
+        }
+    }
+
+    public List<Promocion> getPromociones() {
+        return new ArrayList<>(promociones);
+    }
+
+    public List<Restriccion> getRestricciones() {
+        return new ArrayList<>(restricciones);
     }
 }

@@ -10,7 +10,7 @@ public class Usuario extends UsuarioSistema {
 
     protected String correo;
     protected String telefono;
-
+    private Reserva reservaSeleccionada;
     private List<Reserva> reservas;
     private final List<Mascota> mascotas = new ArrayList<>();
 
@@ -57,9 +57,12 @@ public class Usuario extends UsuarioSistema {
     }
 
     public void cancelarReserva() {
-        System.out.println(
-            ">>> [PetDayCare] Solicitud de cancelación procesada."
-        );
+    if (reservaSeleccionada == null) {
+        throw new IllegalStateException("Seleccione una reserva.");
+    }
+
+    reservaSeleccionada.cancelar();
+    reservaSeleccionada = null;
     }
 
     public void reportarIncidente() {
@@ -102,5 +105,14 @@ public class Usuario extends UsuarioSistema {
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
+    }
+
+    public void seleccionarReserva(Reserva reserva) {
+    if (reserva == null || !reservas.contains(reserva)) {
+        throw new IllegalArgumentException(
+                "La reserva no pertenece al usuario.");
+    }
+
+    reservaSeleccionada = reserva;
     }
 }

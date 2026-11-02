@@ -1,54 +1,78 @@
 package com.petdaycare.usuarios;
 
+import com.petdaycare.centro.*;
+import com.petdaycare.servicios.IServicio;
+
 public class Administrador extends UsuarioSistema {
+
+    private Centro centro;
+    private Promocion promocion;
+    private Restriccion restriccion;
+    private PoliticaCancelacion politica;
+    private IServicio anterior;
+    private IServicio nuevo;
 
     public Administrador(int id, String nombre) {
         super(id, nombre);
     }
 
-    // Métodos del diagrama UML
+    public void asignarCentro(Centro centro) {
+        if (centro == null) {
+            throw new IllegalArgumentException("Centro obligatorio.");
+        }
+
+        this.centro = centro;
+        promocion = null;
+        restriccion = null;
+        politica = null;
+        anterior = null;
+        nuevo = null;
+    }
+
+    private Centro centroAsignado() {
+        if (centro == null) {
+            throw new IllegalStateException(
+                    "Asigne primero un centro.");
+        }
+
+        return centro;
+    }
+
+    public void prepararPromocion(Promocion promocion) {
+        this.promocion = promocion;
+    }
+
+    public void prepararRestriccion(Restriccion restriccion) {
+        this.restriccion = restriccion;
+    }
+
+    public void prepararPolitica(PoliticaCancelacion politica) {
+        this.politica = politica;
+    }
+
+    public void prepararServicio(IServicio anterior, IServicio nuevo) {
+        this.anterior = anterior;
+        this.nuevo = nuevo;
+    }
 
     public void crearPromocion() {
-        System.out.println(
-            ">>> [Administrador] Creando una nueva promoción."
-        );
+        centroAsignado().agregarPromocion(promocion);
+        promocion = null;
     }
 
     public void crearRestriccion() {
-        System.out.println(
-            ">>> [Administrador] Creando una restricción."
-        );
-    }
-
-    public void editarServicio() {
-        System.out.println(
-            ">>> [Administrador] Editando un servicio."
-        );
+        centroAsignado().agregarRestriccion(restriccion);
+        restriccion = null;
     }
 
     public void crearPoliticaCancelacion() {
-        System.out.println(
-            ">>> [Administrador] Creando política de cancelación."
-        );
+        centroAsignado().configurarPolitica(politica);
+        politica = null;
     }
 
-    // Métodos adicionales del código original
-
-    public void gestionarServicios() {
-        System.out.println(
-            ">>> [Administrador] Configurando servicios, precios y horarios."
-        );
-    }
-
-    public void emitirEstadoCuenta() {
-        System.out.println(
-            ">>> [Administrador] Generando estado de cuenta financiero."
-        );
-    }
-
-    public void usarProveedor() {
-        System.out.println(
-            ">>> [Administrador] Gestionando proveedores externos."
-        );
+    public void editarServicio() {
+        centroAsignado().reemplazarServicio(anterior, nuevo);
+        anterior = null;
+        nuevo = null;
     }
 }
