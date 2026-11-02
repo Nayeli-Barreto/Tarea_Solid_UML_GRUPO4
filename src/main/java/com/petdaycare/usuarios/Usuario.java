@@ -1,5 +1,6 @@
 package com.petdaycare.usuarios;
 
+import com.petdaycare.mascota.Mascota;
 import com.petdaycare.reserva.IReservaBuilder;
 import com.petdaycare.reserva.Reserva;
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ public class Usuario extends UsuarioSistema {
     protected String telefono;
 
     private List<Reserva> reservas;
+    private final List<Mascota> mascotas = new ArrayList<>();
 
     public Usuario(int id, String nombre,String correo, String telefono) {
 
@@ -21,10 +23,20 @@ public class Usuario extends UsuarioSistema {
         this.reservas = new ArrayList<>();
     }
 
-    public void registrarMascota() {
-        System.out.println(
-            ">>> [PetDayCare] Registrando mascota para " + nombre
-        );
+    public void registrarMascota(Mascota mascota) {
+    if (mascota == null) {
+        throw new IllegalArgumentException("La mascota es obligatoria.");
+    }
+
+    boolean registrada = mascotas.stream()
+            .anyMatch(m -> m.getId() == mascota.getId());
+
+    if (registrada) {
+        System.out.println("La mascota ya está registrada.");
+        return;
+    }
+
+    mascotas.add(mascota);
     }
 
     public Reserva crearReserva(IReservaBuilder constructor) {

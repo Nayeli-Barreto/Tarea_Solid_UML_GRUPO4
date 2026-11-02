@@ -56,7 +56,13 @@ public class MascotaBuilder {
     }
 
     public Mascota build() {
-
+        if (nombre == null || nombre.isBlank()
+        || especie == null || especie.isBlank()
+        || raza == null || raza.isBlank()
+        || tamano == null
+        || edad < 0) {
+            throw new IllegalArgumentException("Complete los datos de la mascota con valores válidos.");
+}
         Mascota mascota = new Mascota(
             id, nombre, especie, raza, tamano, edad
         );

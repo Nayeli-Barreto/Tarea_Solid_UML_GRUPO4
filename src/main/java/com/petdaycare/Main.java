@@ -10,15 +10,14 @@ import com.petdaycare.observer.NotificacionApp;
 import com.petdaycare.observer.NotificacionEmail;
 import com.petdaycare.observer.NotificacionSMS;
 import com.petdaycare.pagos.PagoTarjeta;
+import com.petdaycare.reserva.FrecuenciaReserva;
 import com.petdaycare.reserva.Reserva;
 import com.petdaycare.reserva.ReservaBuilder;
-import com.petdaycare.reserva.FrecuenciaReserva;
 import com.petdaycare.servicios.Hospedaje;
 import com.petdaycare.servicios.Paquete;
 import com.petdaycare.servicios.Paseo;
 import com.petdaycare.servicios.SesionesBienestar;
 import com.petdaycare.usuarios.Cliente;
-
 import java.time.LocalDate;
 
 public class Main {
@@ -55,6 +54,8 @@ public class Main {
                     )
                 )
                 .build();
+        
+        cliente.registrarMascota(mascota);
 
         System.out.println("\nMascota registrada: "
                 + mascota.getNombre());
