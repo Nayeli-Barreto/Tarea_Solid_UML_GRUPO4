@@ -11,10 +11,7 @@ public class Promocion {
     private LocalDate fechaInicio;
     private LocalDate fechaFin;
 
-    public Promocion(int id, String nombre,
-                     double descuento,
-                     LocalDate fechaInicio,
-                     LocalDate fechaFin) {
+    public Promocion(int id, String nombre,double descuento,LocalDate fechaInicio,LocalDate fechaFin) {
 
         this.id = id;
         this.nombre = nombre;

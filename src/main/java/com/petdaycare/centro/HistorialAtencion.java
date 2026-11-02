@@ -1,8 +1,7 @@
 package com.petdaycare.centro;
 
 import com.petdaycare.mascota.Mascota;
-import com.petdaycare.servicios.InterfaceServicio;
-
+import com.petdaycare.servicios.IServicio;
 import java.util.Date;
 import java.util.List;
 
@@ -10,10 +9,10 @@ public class HistorialAtencion {
     private String idHistorial;
     private Date fecha;
     private Mascota mascota;
-    private List<InterfaceServicio> serviciosRealizados;
+    private List<IServicio> serviciosRealizados;
     private String observaciones;
 
-    public HistorialAtencion(String idHistorial, Date fecha, Mascota mascota, List<InterfaceServicio> serviciosRealizados, String observaciones) {
+    public HistorialAtencion(String idHistorial, Date fecha, Mascota mascota, List<IServicio> serviciosRealizados, String observaciones) {
         this.idHistorial = idHistorial;
         this.fecha = fecha;
         this.mascota = mascota;
@@ -21,7 +20,7 @@ public class HistorialAtencion {
         this.observaciones = observaciones;
     }
 
-    public void agregarServicio(InterfaceServicio servicio) {
+    public void agregarServicio(IServicio servicio) {
         this.serviciosRealizados.add(servicio);
     }
 
@@ -34,8 +33,8 @@ public class HistorialAtencion {
     public Mascota getMascota() { return mascota; }
     public void setMascota(Mascota mascota) { this.mascota = mascota; }
 
-    public List<InterfaceServicio> getServiciosRealizados() { return serviciosRealizados; }
-    public void setServiciosRealizados(List<InterfaceServicio> serviciosRealizados) { this.serviciosRealizados = serviciosRealizados; }
+    public List<IServicio> getServiciosRealizados() { return serviciosRealizados; }
+    public void setServiciosRealizados(List<IServicio> serviciosRealizados) { this.serviciosRealizados = serviciosRealizados; }
 
     public String getObservaciones() { return observaciones; }
     public void setObservaciones(String observaciones) { this.observaciones = observaciones; }
