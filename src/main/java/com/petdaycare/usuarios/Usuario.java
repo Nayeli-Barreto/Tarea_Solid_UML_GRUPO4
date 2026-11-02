@@ -1,5 +1,6 @@
 package com.petdaycare.usuarios;
 
+import com.petdaycare.reserva.IReservaBuilder;
 import com.petdaycare.reserva.Reserva;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,8 +12,7 @@ public class Usuario extends UsuarioSistema {
 
     private List<Reserva> reservas;
 
-    public Usuario(int id, String nombre,
-                   String correo, String telefono) {
+    public Usuario(int id, String nombre,String correo, String telefono) {
 
         super(id, nombre);
 
@@ -27,7 +27,7 @@ public class Usuario extends UsuarioSistema {
         );
     }
 
-    public Reserva crearReserva() {
+    public Reserva crearReserva(IReservaBuilder constructor) {
         System.out.println(
             ">>> [PetDayCare] Creando nueva reserva..."
         );
