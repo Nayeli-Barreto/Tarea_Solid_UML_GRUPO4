@@ -28,11 +28,20 @@ public class Usuario extends UsuarioSistema {
     }
 
     public Reserva crearReserva(IReservaBuilder constructor) {
-        System.out.println(
-            ">>> [PetDayCare] Creando nueva reserva..."
-        );
+        if (constructor == null) {
+            throw new IllegalArgumentException(
+                    "Se requieren los datos de la reserva.");
+        }
 
-        return null;
+        Reserva reserva = constructor.build();
+
+        if (reserva == null) {
+            throw new IllegalStateException(
+                    "No se pudo construir la reserva.");
+        }
+
+        agregarReserva(reserva);
+        return reserva;
     }
 
     public void cancelarReserva() {
